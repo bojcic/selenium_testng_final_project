@@ -41,4 +41,16 @@ public class NavPage extends BasicPage{
         getLoginButton().click();
     }
 
+    public WebElement getLogoutButton(){
+        return driver.findElement(By.className("btnLogout"));
+    }
+    public void waitForLogoutButtonToBeVisible(){
+        wait
+                .withMessage("Error: Logout button not visible.")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.className("btnLogout")));
+    }
+    public void clickOnLogoutButton(){
+        getLogoutButton().click();
+    }
+
 }

@@ -74,4 +74,9 @@ public class LoginTests extends BasicTest{
                 .until(ExpectedConditions.urlContains("/home"));
 
     }
+    @Test(priority = 6,retryAnalyzer = RetryAnalyzer.class)
+    public void logout(){
+        navPage.waitForLogoutButtonToBeVisible();
+        navPage.clickOnLogoutButton();
+    }
 }
