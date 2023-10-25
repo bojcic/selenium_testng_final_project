@@ -24,4 +24,26 @@ public class SignUpTests extends BasicTest{
         Assert.assertEquals(signUpPage.getConfirmPasswordInputType(),"password",
                 "Error: Confirm Password Input Type should be 'password'");
     }
+
+    @Test(priority = 3,retryAnalyzer = RetryAnalyzer.class)
+    public void displaysErrorsWhenUserAlreadyExist(){
+        String name = "Another User";
+        String email = "admin@admin.com";
+        String password = "12345";
+        String confirmPassword = "12345";
+
+        navPage.clickOnSignUpButton();
+        wait
+                .withMessage("Error: URL should be " + baseUrl + "/signup")
+                .until(ExpectedConditions.urlContains("/signup"));
+
+        signUpPage.completeSignUp(name,email,password,confirmPassword);
+        messagePopUpPage.waitForErrorPopUpToBeVisible();
+        Assert.assertEquals(messagePopUpPage.getErrorPopUpText(),"E-mail already exists",
+                "Error: PopUp text should be 'E-mail already exists'");
+
+        wait
+                .withMessage("Error: URL should be " + baseUrl + "/signup")
+                .until(ExpectedConditions.urlContains("/signup"));
+    }
 }
