@@ -60,4 +60,18 @@ public class LoginTests extends BasicTest{
                 .until(ExpectedConditions.urlContains("/login"));
 
     }
+
+    @Test(priority = 5,retryAnalyzer = RetryAnalyzer.class)
+    public void login(){
+        String email = "admin@admin.com";
+        String password = "12345";
+
+        navPage.clickOnLoginButton();
+        loginPage.completeLogin(email,password);
+
+        wait
+                .withMessage("Error: URL should be " + baseUrl + "/home")
+                .until(ExpectedConditions.urlContains("/home"));
+
+    }
 }
