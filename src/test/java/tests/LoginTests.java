@@ -27,4 +27,20 @@ public class LoginTests extends BasicTest{
                 "Error: Email Input Type should be 'password'");
     }
 
+    @Test(priority = 3,retryAnalyzer = RetryAnalyzer.class)
+    public void displaysErrorsWhenUserDoesNotExist(){
+     String email = "non-existing-user@gmal.com";
+     String password = "password123";
+
+     navPage.clickOnLoginButton();
+     loginPage.completeLogin(email,password);
+     messagePopUpPage.waitForErrorPopUpToBeVisible();
+     Assert.assertEquals(messagePopUpPage.getErrorPopUpText(),"User does not exists",
+             "Error: PopUp text should be 'User does not exists'");
+
+        wait
+                .withMessage("Error: URL should be " + baseUrl + "/login")
+                .until(ExpectedConditions.urlContains("/login"));
+
+    }
 }

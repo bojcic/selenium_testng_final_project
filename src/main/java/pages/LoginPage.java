@@ -25,6 +25,21 @@ public class LoginPage extends BasicPage {
     public String getPasswordInputType(){
         return getPasswordInput().getAttribute("type");
     }
+    public void clickOnLoginButton(){
+        getLoginButton().click();
+    }
+    public void inputEmail(String email){
+        getEmailInput().sendKeys(email);
+    }
 
+    public void inputPassword(String password){
+        getPasswordInput().sendKeys(password);
+    }
+
+    public void completeLogin(String email, String password){
+        inputEmail(email);
+        inputPassword(password);
+        clickOnLoginButton();
+    }
 
 }
