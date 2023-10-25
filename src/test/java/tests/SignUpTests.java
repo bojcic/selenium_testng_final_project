@@ -46,4 +46,29 @@ public class SignUpTests extends BasicTest{
                 .withMessage("Error: URL should be " + baseUrl + "/signup")
                 .until(ExpectedConditions.urlContains("/signup"));
     }
+    @Test(priority = 4,retryAnalyzer = RetryAnalyzer.class)
+    public void signUp(){
+        String name = "Vladimir Bojčić";
+        String email = "vladimirbojcic@itbootcamp.rs";
+        String password = "12345";
+        String confirmPassword = "12345";
+
+        navPage.clickOnSignUpButton();
+        wait
+                .withMessage("Error: URL should be " + baseUrl + "/signup")
+                .until(ExpectedConditions.urlContains("/signup"));
+
+        signUpPage.completeSignUp(name,email,password,confirmPassword);
+        wait
+                .withMessage("Error: URL should be " + baseUrl + "/home")
+                .until(ExpectedConditions.urlContains("/home"));
+
+        messagePopUpPage.waitForVerifyAccountDialogToBeVisible();
+        Assert.assertEquals(messagePopUpPage.getVerifyAccountDialogText(),"IMPORTANT: Verify your account",
+                "Error: Text in dialog should be 'IMPORTANT: Verify your account'");
+        messagePopUpPage.clickOnVerifyDialogCloseButton();
+
+        navPage.clickOnLogoutButton();
+
+    }
 }
